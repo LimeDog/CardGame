@@ -1,6 +1,6 @@
 android {
-    buildToolsVersion "23.0.3"
-    compileSdkVersion 23
+    buildToolsVersion "24.0.0"
+    compileSdkVersion 24
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -14,10 +14,13 @@ android {
 
         instrumentTest.setRoot('tests')
     }
+    packagingOptions {
+        exclude 'META-INF/robovm/ios/robovm.xml'
+    }
     defaultConfig {
-        applicationId "io.github.bobjoetom.elementgame"
+        applicationId "io.github.bobjoetom.craftingwar"
         minSdkVersion 8
-        targetSdkVersion 23
+        targetSdkVersion 24
     }
 }
 
@@ -68,7 +71,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'io.github.bobjoetom.elementgame/io.github.bobjoetom.elementgame.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'io.github.bobjoetom.craftingwar/io.github.bobjoetom.craftingwar.AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.
