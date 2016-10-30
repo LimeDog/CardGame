@@ -89,7 +89,6 @@ public class Player {
     ArrayList<Card> cards = new ArrayList<Card>();
     ArrayList<Card> crafter = new ArrayList<Card>();
 
-
     public void insertCard(Card card){
         for (int i=0; i< cards.size();i++){
             if(card.getTruePosistion().x > cards.get(i).getTruePosistion().x){
@@ -108,8 +107,9 @@ public class Player {
     }
 
     public void dumpToCards(){
-        drawCard(crafter.get(0));
-        drawCard(crafter.get(1));
+        if(crafter.size()==2)drawCard(crafter.remove(1));
+        if(crafter.size()==1)drawCard(crafter.remove(0));
+
     }
 
     public void combine(){
@@ -120,9 +120,18 @@ public class Player {
         return cards.get(i);
     }
     public Card getCrafter(int i){ return crafter.get(i);}
-    public Card removeCard(int i){
-        return cards.remove(i);
+    public void insertCrafter(Card card){
+        if(crafter.size()<=1){
+            crafter.add(card);
+        }
     }
+    public Card removeCard(int i){
+        //CONDENCEING ACTION
+        Card result = cards.remove(i);//Remove should move everything back to the left
+        return result;
+
+    }
+    public Card removeCrafter(int i){ return crafter.remove(i);}
     public int getCardsSize(){ return cards.size(); }
     public int getCrafterSize(){ return crafter.size();}
 
@@ -131,6 +140,7 @@ public class Player {
         setTheta();
         setCardRenderPosistion();
         setCardsPosistion();
+        setCrafterRenderPosition();
     }
 
     public void setTheta(){
@@ -141,22 +151,19 @@ public class Player {
         }else{
             change = arc/(cards.size()+1);
         }
-        System.out.print("Theta: ");
+
         for(int i = 0; i < cards.size();i++){
             if(cards.size()%2==0){
                 cards.get(i).setTheta(D1+(change/2) + (i*change));
             }else{
                 cards.get(i).setTheta(D1+change + (i*change));
             }
-            System.out.print(cards.get(i).getTheta() + ", ");
         }
-        System.out.println();
     }
 
     public void setCardsPosistion() {
         for (int i = 0; i < cards.size(); i++){
             cards.get(i).setTruePosistion(new Vector2((float) ((Math.cos(Math.toRadians(cards.get(i).getTheta())) * RADIUS) + CENTER.x), (float) ((Math.sin(Math.toRadians(cards.get(i).getTheta())) * RADIUS) + CENTER.y)));
-            //System.out.println(cards.get(i).getTruePosistion());
         }
     }
 
@@ -173,7 +180,7 @@ public class Player {
                         cards.get(i).translateRender(new Vector2(speed, -speed));
                     }else{
                         cards.get(i).setRender(new Vector2(speed, (float) (-1*(Math.sqrt(Math.pow(RADIUS, 2) - Math.pow((cards.get(i).getRenderPosistion().x + 1) - CENTER.x, 2))) + CENTER.y)));
-                        System.out.println("IM THERE");
+
                     }
                 }
                 if (cards.get(i).getRenderPosistion().x > cards.get(i).getTruePosistion().x) {
@@ -185,8 +192,28 @@ public class Player {
                         cards.get(i).translateRender(new Vector2(-speed, -speed));
                     }else{
                         cards.get(i).setRender(new Vector2(-speed, (float) (-1*(Math.sqrt(Math.pow(RADIUS, 2) - Math.pow((cards.get(i).getRenderPosistion().x - 1) - CENTER.x, 2))) + CENTER.y)));
-                        System.out.println("IM THERE");
+
                     }
+                }
+                if(crafter.size()==1) {
+                    if (crafter.get(0).getRenderPosistion().x < 220)
+                        crafter.get(0).translateRender(new Vector2(2, 0));
+                    if (crafter.get(0).getRenderPosistion().x > 220)
+                        crafter.get(0).translateRender(new Vector2(-2, 0));
+                    if (crafter.get(0).getRenderPosistion().y < 760)
+                        crafter.get(0).translateRender(new Vector2(0, 2));
+                    if (crafter.get(0).getRenderPosistion().y > 760)
+                        crafter.get(0).translateRender(new Vector2(0, -2));
+                }
+                if(crafter.size()==2) {
+                    if (crafter.get(1).getRenderPosistion().x < 260)
+                        crafter.get(1).translateRender(new Vector2(2, 0));
+                    if (crafter.get(1).getRenderPosistion().x > 260)
+                        crafter.get(1).translateRender(new Vector2(-2, 0));
+                    if (crafter.get(1).getRenderPosistion().y < 760)
+                        crafter.get(1).translateRender(new Vector2(0, 2));
+                    if (crafter.get(1).getRenderPosistion().y > 760)
+                        crafter.get(1).translateRender(new Vector2(0, -2));
                 }
             }else {
                 if (cards.get(i).getRenderPosistion().x < cards.get(i).getTruePosistion().x) {
@@ -196,7 +223,7 @@ public class Player {
                         cards.get(i).translateRender(new Vector2(speed, speed));
                     }else{
                         cards.get(i).setRender(new Vector2(speed, (float) (Math.sqrt(Math.pow(RADIUS, 2) - Math.pow((cards.get(i).getRenderPosistion().x + 1) - CENTER.x, 2)) + CENTER.y)));
-                        System.out.println("IM THERE");
+
                     }
                 }
                 if (cards.get(i).getRenderPosistion().x > cards.get(i).getTruePosistion().x) {
@@ -208,15 +235,35 @@ public class Player {
                         cards.get(i).translateRender(new Vector2(-speed, speed));
                     }else{
                         cards.get(i).setRender(new Vector2(-speed, (float) (Math.sqrt(Math.pow(RADIUS, 2) - Math.pow((cards.get(i).getRenderPosistion().x - 1) - CENTER.x, 2)) + CENTER.y)));
-                        System.out.println("IM THERE");
+
                     }
+                }
+                if(crafter.size()==1) {
+                    if (crafter.get(0).getRenderPosistion().x < 220)
+                        crafter.get(0).translateRender(new Vector2(2, 0));
+                    if (crafter.get(0).getRenderPosistion().x > 220)
+                        crafter.get(0).translateRender(new Vector2(-2, 0));
+                    if (crafter.get(0).getRenderPosistion().y < 100)
+                        crafter.get(0).translateRender(new Vector2(0, 2));
+                    if (crafter.get(0).getRenderPosistion().y > 100)
+                        crafter.get(0).translateRender(new Vector2(0, -2));
+                }
+                if(crafter.size()==2) {
+                    if (crafter.get(1).getRenderPosistion().x < 260)
+                        crafter.get(1).translateRender(new Vector2(2, 0));
+                    if (crafter.get(1).getRenderPosistion().x > 260)
+                        crafter.get(1).translateRender(new Vector2(-2, 0));
+                    if (crafter.get(1).getRenderPosistion().y < 100)
+                        crafter.get(1).translateRender(new Vector2(0, 2));
+                    if (crafter.get(1).getRenderPosistion().y > 100)
+                        crafter.get(1).translateRender(new Vector2(0, -2));
                 }
             }
             //fixBounds(crafter.get(i));
         }
     }
 
-    public void setCrafterRenderPosition(){
+    public void setCrafterRenderPosition(){//TODO is going to be replaced with a fre emovement if inside bounds box to craft not forced possitioning
 
     }
 
@@ -226,7 +273,7 @@ public class Player {
         }else{
             for (int e1 = 0; e1 < cards.size(); e1++){
                 for(int e2=e1+1; e2< cards.size(); e2++){
-                    if(cards.get(e1).isCombinable(cards.get(e2))==true){
+                    if(cards.get(e1).isCombinable(cards.get(e2))){
                         return true;
                     }
                 }
@@ -246,35 +293,24 @@ public class Player {
     Button btnEndCombine = new EndCombineButton();
     int btnEndCombineWIDTH = 400;//TODO CHANGE TO PORPOTRIONAL TO SCREEN
     int btnEndCombineHEIGHT = 200;//TODO CHANGE TO PORPOTIONAL TO SCREEN
-    Vector2 btnEndCombinePosistion = new Vector2((Game.WIDTH/2)- btnEndCombineWIDTH,(Game.HEIGHT/2)- btnEndCombineHEIGHT);
+    Vector2 btnEndCombinePosistion;
 
     public Vector2 getBtnEndCombinePosistion() {
-        return btnEndCombinePosistion;
+        return btnEndCombine.getRenderPosistion();
     }
 
-    public void setBtnEndCombinePosistion(Vector2 btnEndCombinePosistion) {
-        this.btnEndCombinePosistion = btnEndCombinePosistion;
-    }
-
+    public void setBtnEndCombinePosistion(Vector2 btnEndCombinePosistion) {btnEndCombine.setRenderPosistion(btnEndCombinePosistion);}
     public Button getBtnEndCombine() {
         return btnEndCombine;
     }
-
     public int getBtnEndCombineWIDTH() {
         return btnEndCombineWIDTH;
     }
-
-    public void setBtnEndCombineWIDTH(int btnEndCombineWIDTH) {
-        this.btnEndCombineWIDTH = btnEndCombineWIDTH;
-    }
-
     public int getBtnEndCombineHEIGHT() {
         return btnEndCombineHEIGHT;
     }
 
-    public void setBtnEndCombineHEIGHT(int btnEndCombineHEIGHT) {
-        this.btnEndCombineHEIGHT = btnEndCombineHEIGHT;
-    }
+
     ////////////////////
     //END BUTTONS///////
     ////////////////////
@@ -325,7 +361,6 @@ public class Player {
         setDrawing(false);
         btnEndCombine.setWIDTH(btnEndCombineWIDTH);
         btnEndCombine.setHEIGHT(btnEndCombineHEIGHT);
-        btnEndCombine.setRenderPosistion(btnEndCombinePosistion);
     }
     ////////////////////
     //END CONSTRUCTOR///

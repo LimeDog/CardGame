@@ -8,6 +8,7 @@ public class Smeltery extends Card{
     public Smeltery() {
         super();
         setID("Smeltery");
+        setPoints(10);
         setCardTexturePath("smeltery.png");
         setCardSelectedTexturePath("smeltery-Selected.png");
         setRenderedCard(getCardTexturePath());

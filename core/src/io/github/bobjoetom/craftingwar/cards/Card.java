@@ -19,6 +19,7 @@ public class Card {//THIS REALLY SHOULD EXTEND BUTTON
     private String ID = "Card";
     private  String cardTexturePath = "water.png";
     private  String cardSelectedTexturePath = "water-Selected.png";
+    private int points; //points recieved when made.
 
     private Vector2 truePosistion = new Vector2(0f,0f);//FIX
     private Vector2 renderPosistion = new Vector2(0f,0f);//FIX
@@ -52,7 +53,7 @@ public class Card {//THIS REALLY SHOULD EXTEND BUTTON
     public void render(SpriteBatch sb){
         sb.draw(renderedCard, (renderPosistion.x - (WIDTH/2)), (renderPosistion.y - (HEIGHT/2)), WIDTH, HEIGHT);
         //System.out.println(getRenderPosistion().x + " " + renderPosistion.y);
-        Game.consolePrint(200, getRenderPosistion().toString());
+
     }
     ////////////////////
     //UTILITIES/////////
@@ -135,6 +136,14 @@ public class Card {//THIS REALLY SHOULD EXTEND BUTTON
         return ID;
     }
     public void setID(String i) { ID = i;}
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
     ////////////////////
     ////////////////////
 

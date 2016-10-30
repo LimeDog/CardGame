@@ -10,20 +10,15 @@ public class Fire extends Card {
     public Fire() {
         super();
         setID("Fire");
+        setPoints(5);
         setCardTexturePath("fire.png");
         setCardSelectedTexturePath("fire-Selected.png");
         setRenderedCard(getCardTexturePath());
 
     }
-    /*
-    @Override
-    public boolean ifCombinable(Card e) {
-        if(e.getID()=="Earth"){
-            return true;
-        }
-        return false;
+    public boolean isCombinable(Card e) {
+        return e.getID() == "Earth";
     }
-    */
     @Override
     public Card combine(Card e) {
         if(e.getID()=="Earth"){

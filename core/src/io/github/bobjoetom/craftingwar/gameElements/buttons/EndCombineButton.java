@@ -12,7 +12,6 @@ public class EndCombineButton extends Button {
         setSelectedTexturePath("actionText.png");
         setTexturePath("actionText.png");
         setRenderedButton(getTexturePath());
-        setRenderPosistion(new Vector2(0,0));
         setWIDTH(150);
         setHEIGHT(50);
     }

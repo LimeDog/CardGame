@@ -116,7 +116,6 @@ public class DrawPile {
     public void refresh(){
             //THIS WAS INSIDE A FOR LOOP
             if(cards.size()<3) {
-                System.out.println("REFERESHED DRAW PILE");
                 int r = rando.nextInt(3);
                 if (r == 0) {
                     cards.add(0, new Fire());
@@ -177,7 +176,6 @@ public class DrawPile {
 
     public void drawing(){
         if(Gdx.input.justTouched()) {
-            System.out.println("input Coords: " + Gdx.input.getX() + " " + Gdx.input.getY());
             for (int i = 0; i < cards.size(); i++) {
                 if(cards.get(i).checkIfClicked(Gdx.input.getX(), Gdx.input.getY())){
                     setSelected(cards.get(i));

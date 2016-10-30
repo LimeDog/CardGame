@@ -33,12 +33,4 @@ public class Game extends ApplicationAdapter {
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
 	}
-
-	public static void consolePrint(int counts, String string){
-		consoleCounter++;
-		if(consoleCounter%counts==0){
-			System.out.println(string);
-			consoleCounter=0;
-		}
-	}
 }

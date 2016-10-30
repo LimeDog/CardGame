@@ -20,8 +20,7 @@ public class Button {
     private  String selectedTexturePath;
 
     private Texture renderedButton;
-   // private Vector2 truePosistion = new Vector2(0f,0f);//FIX
-    private Vector2 renderPosistion = new Vector2(0f,0f);//FIX
+    private Vector2 renderPosistion;
 
     private boolean selected = false;
     private boolean visible = false;
@@ -30,7 +29,7 @@ public class Button {
     public void setVisible(boolean visible) {this.visible = visible;}
 
     public void render(SpriteBatch sb){
-        if(visible)sb.draw(renderedButton, (renderPosistion.x - (WIDTH/2)), (renderPosistion.y - (HEIGHT/2)),1.0f,1.0f, WIDTH, HEIGHT,1.0f,1.0f, degreeRotated, 1,1,1,1,false,false);
+        if(visible)sb.draw(renderedButton, (renderPosistion.x - (WIDTH/2)), (renderPosistion.y - (HEIGHT/2)), WIDTH, HEIGHT);
     }
 
     public void update(){
@@ -42,11 +41,8 @@ public class Button {
     public int getWIDTH() {return WIDTH;}
     public void setWIDTH(int WIDTH) {this.WIDTH = WIDTH;}
 
-    //public Vector2 getTruePosistion() { return truePosistion; }
     public Vector2 getRenderPosistion() { return renderPosistion; }
-
-    //public void setTruePosistion(Vector2 coords){ truePosistion.set(coords); }
-    public void setRenderPosistion(Vector2 coords) { renderPosistion.set(coords); }
+    public void setRenderPosistion(Vector2 coords) { renderPosistion = (coords); }
 
     public boolean isSelected(){
         return selected;
@@ -93,7 +89,7 @@ public class Button {
 
     //////////////MAYBE HAVE ENABLED TO CLICK AND THE ENABLED BELOW TO A CLICK ENABLE, MIGHT BE EASIER FOR LOGIC
     private int enabledCounter = 0;
-    private boolean enabled = true;
+    private boolean enabled;
 
     public int getEnabledCounter() {
         return enabledCounter;
@@ -185,11 +181,19 @@ public class Button {
     public boolean checkIfClicked () {
         if(Gdx.input.justTouched()) {
             int iy = Gdx.input.getY();
-            int ix = Gdx.input.getY();
+            int ix = Gdx.input.getX();
             iy = Game.HEIGHT - iy;
+            System.out.println(Gdx.input.getX() + " " + Gdx.input.getY());
+            System.out.println(ix + " " + iy);
+
+            System.out.println(renderPosistion.x + " " + renderPosistion.y);
+            System.out.println(getRenderPosistion().x + " " + getRenderPosistion().y);
+            System.out.println(getRenderPosistion().x - WIDTH / 2 + " in between " + (getRenderPosistion().x + WIDTH / 2));
             if (ix > getRenderPosistion().x - WIDTH / 2 && ix < (getRenderPosistion().x + WIDTH / 2)) {
                 //if (ix > getRenderPosistion().x && ix < (getRenderPosistion().x + WIDTH)){
+                System.out.println("X IS GOOD");
                 if (iy > getRenderPosistion().y - HEIGHT / 2 && iy < (getRenderPosistion().y + HEIGHT / 2)) {
+                    System.out.println("Y IS GOOD");
                     // if (iy > getRenderPosistion().y && iy < (getRenderPosistion().y + HEIGHT)) {
                     if (isEnabled() == true) {
                         System.out.println("Button clicked!!!");
