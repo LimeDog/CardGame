@@ -1,0 +1,30 @@
+package io.github.bobjoetom.craftingwar.cards;
+
+import com.badlogic.gdx.graphics.Texture;
+
+/**
+ * Created by Emerson Chin on 11/16/2016.
+ */
+public class Plant extends Card {
+
+    public Plant() {
+        super();
+        setID("Plant");
+        setPoints(5);
+        setCardTexturePath("plant.png");
+        setCardSelectedTexturePath("plant-Selected.png");
+        setRenderedCard(getCardTexturePath());
+
+    }
+    public boolean isCombinable(Card e) {
+        return e.getID() == "Earth";
+    }
+    @Override
+    public Card combine(Card e) {
+        if(e.getID()=="Earth"){
+            return new Wood();
+        ElseIf(e.getID() == water
+        }
+        return new Food();
+    }
+}
