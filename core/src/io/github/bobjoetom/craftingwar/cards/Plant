@@ -23,8 +23,9 @@ public class Plant extends Card {
     public Card combine(Card e) {
         if(e.getID()=="Earth"){
             return new Wood();
-        ElseIf(e.getID() == water
+        ElseIf(e.getID() == "Water"
+            return new Food();
         }
-        return new Food();
+        return new Plant(); 
     }
 }
