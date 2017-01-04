@@ -24,6 +24,6 @@ public class Energy extends Card {
         if(e.getID()=="Energy"){
             return new Energy_Boost();
         }
-        return new Card();
+        return new Energy();
     }
 }
