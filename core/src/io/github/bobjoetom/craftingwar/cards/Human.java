@@ -24,6 +24,6 @@ public class Human extends Card {
         if(e.getID()=="Human"){
             return new Human();
         }
-        return new Card();
+        return new Human();
     }
 }
