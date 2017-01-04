@@ -20,7 +20,12 @@ public class Water extends Card {
 
     @Override
     public Card combine(Card e) {
-
+        if(e.getID() == "Life"){
+            return new Human();
+        elseIf(e.getID) == "Plant"
+            return new Food();
+        }
         return super.combine(e);
+            
     }
 }
