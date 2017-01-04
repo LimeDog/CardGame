@@ -24,6 +24,6 @@ public class Earth extends Card {
         if(e.getID()=="Fire"){
             return new Smeltery();
         }
-        return new Card();
+        return new Earth();
     }
 }
